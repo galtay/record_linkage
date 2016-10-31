@@ -18,14 +18,14 @@ def create_base(n_people=N_PEOPLE):
 
     # initialize as empty
     df_base = pandas.DataFrame(
-        np.empty((N_PEOPLE, len(COLS))) * np.nan,
+        np.empty((n_people, len(COLS))) * np.nan,
         columns=COLS)
 
     # add unique person ID
-    df_base['id'] = np.arange(N_PEOPLE)
+    df_base['id'] = np.arange(n_people)
 
     # generate fake data
-    for i in range(N_PEOPLE):
+    for i in range(n_people):
         df_base.loc[i, 'first_name'] = fake.first_name()
         df_base.loc[i, 'last_name'] = fake.last_name()
         df_base.loc[i, 'zipcode'] = fake.zipcode()
@@ -37,8 +37,7 @@ def create_base(n_people=N_PEOPLE):
 #=================================================
 
 def add_nan(df_in, columns=None):
-    """create missing data for a fraction of randomly selected rows in a
-    selection of columns."""
+    """create missing data for a randomly selected column in each row."""
     df = df_in.copy()
     if columns is None:
         columns = df.columns
@@ -50,15 +49,15 @@ def add_nan(df_in, columns=None):
 
 
 def swap_columns(df_in, col1, col2):
-    """swap values for a fraction of randomly selected rows given a pair
-    of columns."""
+    """swap values given a pair of columns."""
     df = df_in.copy()
     df[[col1, col2]] = df[[col2, col1]].values
     return df
 
 
 def single_room_columns(df_in, col1, col2, target_col):
-    """empty column `col1` and combine its value with the value in `col2`"""
+    """combine values from col1 and col2 into target_col (must be either col1
+    or col2), null out whichever column is not the target col."""
     if target_col not in [col1, col2]:
         raise ValueError('target col must be either col1 or col2')
     df = df_in.copy()
