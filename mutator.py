@@ -17,28 +17,21 @@ import random
 
 DEFAULT_INSERT_ALPHABET = string.ascii_lowercase
 DEFAULT_REPLACE_ALPHABET = string.ascii_lowercase
+DEFAULT_RANDOM_SEED = 9272643
 
 
 class Mutator():
     """A class to handle string mutations."""
 
-    def __init__(self, insert_alphabet=None, replace_alphabet=None):
+    def __init__(
+            self,
+            insert_alphabet=DEFAULT_INSERT_ALPHABET,
+            replace_alphabet=DEFAULT_REPLACE_ALPHABET,
+            seed=DEFAULT_RANDOM_SEED):
 
-        if insert_alphabet is None:
-            self.set_insert_alphabet(DEFAULT_INSERT_ALPHABET)
-        else:
-            self.set_insert_alphabet(insert_alphabet)
-
-        if replace_alphabet is None:
-            self.set_replace_alphabet(DEFAULT_REPLACE_ALPHABET)
-        else:
-            self.set_replace_alphabet(replace_alphabet)
-
+        self.set_insert_alphabet(insert_alphabet)
+        self.set_replace_alphabet(replace_alphabet)
         self.random = random.Random()
-
-
-    def set_random_seed(self, seed):
-        """set the seed for the local random instance"""
         self.random.seed(seed)
 
 
@@ -110,4 +103,4 @@ class Mutator():
         ii = indx
         ff = indx+2
         swapped = input_string[ii:ff][::-1]
-        return input_string[:ii] + swapped + input_string[(indx+2):]
+        return input_string[:ii] + swapped + input_string[ff:]
