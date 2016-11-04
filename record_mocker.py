@@ -150,7 +150,7 @@ class RecordMocker():
 
 if __name__ == '__main__':
 
-    remo = RecordMocker(10)
+    remo = RecordMocker(5)
 
     # generate a sample and compose swap columns with add nan
     df1 = remo.sample_base()
